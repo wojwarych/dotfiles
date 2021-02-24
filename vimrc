@@ -1,0 +1,91 @@
+let $RTP=split(&runtimepath, ',')[0]
+let $RC="$HOME/.vim/vimrc"
+
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mbbill/undotree'
+Plugin 'dense-analysis/ale'
+Plugin 'tomasr/molokai'
+Plugin 'vim-python/python-syntax'
+Plugin 'fatih/vim-go'
+call vundle#end()
+
+function! GitBranch()
+    return system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'")
+endfunction
+
+function! StatusLineGit()
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0?' '.l:branchname.' ':''
+endfunction
+
+fun! StripTrailingWhitespaces()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+filetype plugin indent on
+syntax on
+syntax enable
+set path+=**
+set wildmenu
+set noerrorbells
+set backspace=indent,eol,start
+set hidden
+set noswapfile
+set nu
+set nowrap
+set smartcase
+set incsearch
+set hlsearch
+set lazyredraw
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set ffs=unix,dos,mac
+set laststatus=2
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatusLineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\
+set splitright
+set splitbelow
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+let g:rehash256 = 1
+let g:python_highlight_all = 1
+colorscheme molokai
+
+let g:netrw_banner=0
+let g:netrw_winsize=25
+let g:netrw_list_hide= '.git/,.pytest_cache/,__pycache__/'
+
+nnoremap <C-K> <C-W>k
+nnoremap <C-J> <C-W>j
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
+nnoremap j gj
+nnoremap k gk
+
+autocmd FileType python,html,sh,yaml autocmd BufWritePre * :call StripTrailingWhitespaces()
