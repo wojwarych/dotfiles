@@ -1,0 +1,8 @@
+alias gf="git fetch"
+alias s="git status"
+alias d="git diff"
+alias gc="git commit -m"
+alias ..="cd .."
+alias gl="git log"
+alias trzp="tar -czvf"
+alias trex="tar -xzvf"
