@@ -133,3 +133,5 @@ if [ "$PWD" == "/home/wojtek/workspace/portal" ]; then
   TOOLS="${PWD}/tools/aliases"
   source $TOOLS
 fi
+
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
