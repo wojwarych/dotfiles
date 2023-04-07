@@ -123,15 +123,12 @@ if ! shopt -oq posix; then
 fi
 export CSCOPE_EDITOR=vim
 
-VIRTUALENV="${PWD}/venv/"
-if [ -d "$VIRTUALENV" ]; then
-  ACTIVATE="${PWD}/venv/bin/activate"
-  source $ACTIVATE
-fi
-
-if [ "$PWD" == "/home/wojtek/workspace/portal" ]; then
-  TOOLS="${PWD}/tools/aliases"
-  source $TOOLS
-fi
-
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PYENV_ROOT="/home/wojwa/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

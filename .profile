@@ -29,3 +29,6 @@ fi
 export GOPATH=$HOME/workspace/go
 PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

@@ -13,6 +13,8 @@ Plugin 'dense-analysis/ale'
 Plugin 'tomasr/molokai'
 Plugin 'vim-python/python-syntax'
 Plugin 'fatih/vim-go'
+Plugin 'pangloss/vim-javascript'
+Plugin 'MaxMEllon/vim-jsx-pretty'
 call vundle#end()
 
 function! GitBranch()
@@ -33,7 +35,9 @@ endfun
 filetype plugin indent on
 syntax on
 syntax enable
+let mapleader=" "
 set path+=**
+set relativenumber
 set wildmenu
 set noerrorbells
 set backspace=indent,eol,start
@@ -66,6 +70,7 @@ set statusline+=\ %l:%c
 set statusline+=\
 set splitright
 set splitbelow
+set termwinkey=<C-A>
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -87,5 +92,7 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
 nnoremap j gj
 nnoremap k gk
+nnoremap <leader><leader> :tab term<CR>
+nnoremap <F5> :buffers<CR>:buffer<Space>
 
 autocmd FileType python,html,sh,yaml autocmd BufWritePre * :call StripTrailingWhitespaces()
